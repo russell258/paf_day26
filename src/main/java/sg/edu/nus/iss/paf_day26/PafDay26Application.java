@@ -10,4 +10,9 @@ public class PafDay26Application {
 		SpringApplication.run(PafDay26Application.class, args);
 	}
 
+	// @Override
+	// public void run(String args) throws Exception{
+	// 	List<Document> docs = showRepo.findShowsByName()
+	// }
+
 }
