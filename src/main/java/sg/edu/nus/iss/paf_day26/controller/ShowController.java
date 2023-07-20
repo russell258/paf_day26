@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,19 @@ public class ShowController {
         Optional<Show> opt = svc.getShowByName(showName);
         ModelAndView mav = new ModelAndView();
 
-        if (opt.isEmpty())
+        if (opt.isEmpty()){
+            mav.setViewName("not-found");
+            mav.addObject("message", "Cannot find %s".formatted(showName));
+            mav.setStatus(HttpStatusCode.valueOf(404));
+            return mav;
+        }
+
+        mav.setViewName("result");
+        mav.addObject("title",showName);
+        mav.addObject("show", opt.get());
+        mav.setStatus(HttpStatusCode.valueOf(200));
+
+        return mav;
 
     }
 
